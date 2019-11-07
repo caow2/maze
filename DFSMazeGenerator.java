@@ -41,6 +41,8 @@ public class DFSMazeGenerator extends MazeGenerator {
         maze[i][j] = new MazePanel();
       }
     }
+
+    openMaze(maze);
     return maze;
   }
 
@@ -73,7 +75,7 @@ public class DFSMazeGenerator extends MazeGenerator {
 
     // neighbors ordered up, down, left, right to match MazePanel walls
     int[][] neighbors = {{x - 1, y}, {x + 1, y}, {x, y - 1}, {x, y + 1}};
-    Integer[] indices = shuffle(neighbors); // index map from shuffling elements
+    shuffle(neighbors);
     for(int i = 0; i < neighbors.length; i++) {
       int[] n = neighbors[i];
       if(validCoordinate(n, seen)) {

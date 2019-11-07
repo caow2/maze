@@ -5,7 +5,7 @@
  */
 public class MazePanel {
   protected static final int UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4; // wall numbers
-  private boolean upOpen, downOpen, leftOpen, rightOpen; // initially all false
+  protected boolean upOpen, downOpen, leftOpen, rightOpen; // initially all false
 
   public MazePanel(){
   }
@@ -31,18 +31,5 @@ public class MazePanel {
         System.err.println("Invalid wall number : " + wallNum);
         break;
     }
-  }
-
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    if(upOpen)
-      sb.append("U");
-    if(downOpen)
-      sb.append("D");
-    if(leftOpen)
-      sb.append("L");
-    if(rightOpen)
-      sb.append("R");
-    return sb.toString();
   }
 }
