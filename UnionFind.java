@@ -1,6 +1,6 @@
 import java.util.Arrays;
 /*
- * Union Find with rank and path compression for efficient Kruskal's algorithm.
+ * Union Find with rank and path compression for Kruskal's algorithm.
  */
 public class UnionFind {
   private int[] parents, rank;
@@ -10,23 +10,30 @@ public class UnionFind {
     numComponents = size;
     parents = new int[size];
     rank = new int[size];
-    Arrays.fill(rank, 1); // all components initially have rank of 1
 
     for(int i = 0; i < parents.length; i++) {
       parents[i] = i;
+      rank[i] = 1;
     }
   }
 
+  /**
+   * Find the parent of component x and compress the path.
+   */
   public int find(int x) {
     if(parents[x] != x)
-      parents[x] = find(parents[x]); // path compression
+      parents[x] = find(parents[x]);
     return parents[x];
   }
 
-  public void union(int x, int y) {
+  /**
+   * Connect two components if they are not already connected.
+   * Returns true if successful union, false otherwise
+   */
+  public boolean union(int x, int y) {
     int parentX = find(x), parentY = find(y);
     if(connected(x, y))
-      return;
+      return false;
 
     // merge y into x -> let parentX be larger ranked
     if(rank[parentX] < rank[parentY]) {
@@ -39,13 +46,21 @@ public class UnionFind {
 
     parents[parentY] = parentX;
     numComponents--;
+    return true;
   }
 
+  /**
+   * Return whether 2 components x and y are connected.
+   */
   public boolean connected(int x, int y) {
     return find(x) == find(y);
   }
 
   public int rank(int x) {
     return rank[x];
+  }
+
+  public int numComponents() {
+    return numComponents;
   }
 }

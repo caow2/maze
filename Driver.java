@@ -1,11 +1,19 @@
 public class Driver {
   public static void main(String[] args) {
-    
+    testMazeKruskals();
+    //testMazeDFS();
+    //testUF();
   }
 
-  public static void testMaze() {
+  public static void testMazeDFS() {
     int len = 20, width = 20; //maze dimensions
     MazePanel[][] maze = new DFSMazeGenerator().generate(len, width);
+    new MazeFrame(maze);
+  }
+
+  public static void testMazeKruskals() {
+    int len = 10, width = 10;
+    MazePanel[][] maze = new KruskalMazeGenerator().generate(len, width);
     new MazeFrame(maze);
   }
 
