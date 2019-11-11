@@ -4,6 +4,7 @@ import java.util.Random;
 
 /*
  * Maze Generator based on randomized Kruskal's algorithm.
+ ***** MAZE LOOKS WEIRD BECAUSE OF HOW EDGES ARE GENERATED
  */
 public class KruskalMazeGenerator extends MazeGenerator {
   public KruskalMazeGenerator() {
@@ -12,10 +13,11 @@ public class KruskalMazeGenerator extends MazeGenerator {
   public MazePanel[][] generate(int length, int width) {
     MazePanel[][] maze = init(length, width);
 
-    int numElements = (length * width) - 1; // number of elements in the maze
+    int numElements = length * width; // number of elements in the maze
     UnionFind uf = new UnionFind(numElements);
 
-    Map<Integer, CoordinatePair> map = generateRandomEdges(maze);
+    Map<Integer, CoordinatePair> map = generateEdges(maze);
+    shuffleMap(map);
     //connect randomized edges b/w components if possible
     for(int i = 0; uf.numComponents() > 1; i++) {
       CoordinatePair cp = map.remove(i);
@@ -27,7 +29,6 @@ public class KruskalMazeGenerator extends MazeGenerator {
         breakDownWalls(maze, x1, y1, x2, y2);
       }
     }
-    System.out.println(uf.numComponents());
 
     return maze;
   }
@@ -36,16 +37,15 @@ public class KruskalMazeGenerator extends MazeGenerator {
   /**
    * Create a collection of CoordinatePair between adjacent coordinates in the maze.
    * A CoordinatePair represents a bidirectional edge.
+   * To avoid redundant edges and keeping track of processed edges, we will only
+   * consider the following edges for each coordinate (x,y):
+   * 1. (x, y + 1) left
+   * 2. (x + 1, y) down
    *
    * We process the maze grid from left to right, top to bottom.
-   * To avoid redundant edges and keeping track of edges we've processed, we only consider the
-   * following edges for each coordinate (x, y):
-   * 1. (x, y) <-> (x, y + 1)
-   * 2. (x, y) <-> (x + 1, y)
-   *
    * A Map is used where the key is a 0-based index and the value is a CoordinatePair.
    */
-  private Map<Integer, CoordinatePair> generateRandomEdges(MazePanel[][] maze) {
+  private Map<Integer, CoordinatePair> generateEdges(MazePanel[][] maze) {
     HashMap<Integer, CoordinatePair> map = new HashMap<Integer, CoordinatePair>();
     int index = 0;
 
