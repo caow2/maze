@@ -1,7 +1,25 @@
 public class Driver {
   public static void main(String[] args) {
-    int len = 20, width = 20; // maze dimensions
+    
+  }
+
+  public static void testMaze() {
+    int len = 20, width = 20; //maze dimensions
     MazePanel[][] maze = new DFSMazeGenerator().generate(len, width);
     new MazeFrame(maze);
+  }
+
+  public static void testUF() {
+    UnionFind uf = new UnionFind(10);
+    uf.union(1,3);
+    System.out.println(uf.find(3) == 1);
+    System.out.println(uf.find(1) == 1);
+
+    uf.union(5,3); // parent of 3 is rank 2, while 5 is rank == 1 1
+    System.out.println(uf.find(5) == 1);
+    System.out.println(uf.find(3) == 1);
+
+    System.out.println(uf.connected(5, 1));
+    System.out.println(! uf.connected(3, 4));
   }
 }
