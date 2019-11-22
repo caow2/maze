@@ -1,9 +1,10 @@
 
 public class Driver {
   public static void main(String[] args) {
-    testMazeKruskals();
+    //testMazeKruskals();
     //testMazeDFS();
     //testUF();
+    testMazePrims();
   }
 
   public static void testMazeDFS() {
@@ -15,6 +16,12 @@ public class Driver {
   public static void testMazeKruskals() {
     int len = 20, width = 20;
     MazePanel[][] maze = new KruskalMazeGenerator().generate(len, width);
+    new MazeFrame(maze);
+  }
+
+  public static void testMazePrims() {
+    int len = 20, width = 20;
+    MazePanel[][] maze = new PrimMazeGenerator().generate(len, width);
     new MazeFrame(maze);
   }
 

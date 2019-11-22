@@ -4,7 +4,6 @@ import java.util.Random;
 
 /*
  * Maze Generator based on randomized Kruskal's algorithm.
- ***** MAZE LOOKS WEIRD BECAUSE OF HOW EDGES ARE GENERATED
  */
 public class KruskalMazeGenerator extends MazeGenerator {
   public KruskalMazeGenerator() {
